@@ -1,10 +1,14 @@
-# Getting Started with Create React App
+# Twitter Mentors
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Have you had to resort to manually checking your twitter mentor's profiles for their latest tweets?
+Does the twitter algorigthm make you miss out on their tweets?
+Well then, this extension will come in handy
 
-## Available Scripts
+## To get the chrome extension
 
-In the project directory, you can run:
+1. Open [Chrome webstore](https://chrome.google.com/webstore/category/extensions)
+2. Search for `Twitter Mentors`
+3. Download the extension
 
 ### `npm start`
 
