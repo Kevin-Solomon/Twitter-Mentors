@@ -1,14 +1,12 @@
-import React, {useState} from "react";
-import axios from "axios";
-
+import React, { useState } from "react";
 
 function Mentors() {
+  const [name, setName] = useState("");
 
-  const [name, setName] = useState("")
-  
-  const fetchMentor = async() =>{
-    const result = await axios.get('/.netlify/functions/getMentor')
-    setName(result.name)
+  async function fetchMentor() {
+    const result = await fetch('./.netlify/netlify/functions/getMentor')
+    // const data = await result.json()
+    // console.log(result)
   }
 
   return (
