@@ -9,14 +9,14 @@ exports.handler = async function (event, context) {
     },
   };
 
-   const res = await fetch(
-    "https://api.twitter.com/2/users/by/username/itshamhere?user.fields=profile_image_url,name",
+  const res = await fetch(
+    "https://api.twitter.com/2/users/by/username/tanaypratap?user.fields=profile_image_url,name",
     config
-  )
+  );
   const data = await res.json();
 
   return {
     statusCode: 200,
-    body: JSON.stringify(data)
-  }
+    body: JSON.stringify(data),
+  };
 };
