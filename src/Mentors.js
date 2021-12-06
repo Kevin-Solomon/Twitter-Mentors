@@ -4,15 +4,14 @@ function Mentors() {
   const [name, setName] = useState("");
 
   async function fetchMentor() {
-    const result = await fetch('./.netlify/netlify/functions/getMentor')
-    // const data = await result.json()
-    // console.log(result)
+    fetch('./.netlify/functions/getMentor').then((res) => res.json()).then(data => setName(data))
   }
 
   return (
     <div>
       <button onClick={fetchMentor}>Get Mentor</button>
-      <p>{name}</p>
+      <p>{name && name.data.name}</p>
+      <img src={name && name.data.profile_image_url} alt="pfp" />
     </div>
   );
 }
