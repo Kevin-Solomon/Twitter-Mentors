@@ -1,17 +1,23 @@
 import React, { useState } from "react";
 
-function Mentors() {
+export default function Mentors() {
   const [name, setName] = useState("");
+  const [twitterid, setTwitterid] = useState("");
 
   async function fetchMentor() {
-    fetch("./.netlify/functions/getMentor")
+    fetch(`./.netlify/functions/getMentor?username=${twitterid}`)
       .then((res) => res.json())
       .then((data) => setName(data));
   }
 
+  function handleInput(event) {
+    setTwitterid(event.target.value);
+  }
+
   return (
     <div>
-      <button onClick={fetchMentor}>Get Mentor</button>
+      <input onChange={handleInput} />
+      <button onClick={fetchMentor}>Add Mentor</button>
       <div
         style={{
           display: name ? "flex" : "none",
@@ -39,8 +45,6 @@ function Mentors() {
     </div>
   );
 }
-
-export default Mentors;
 
 /*
 Each mentor section should show the following info:
