@@ -1,5 +1,5 @@
 {
-  "manifest": 3,
+  "manifest_version": 3,
   "name": "Twitter Mentors",
   "description": "A handy list of your mentors twitter profiles, to check on their latest tweets",
   "author": "Hamza Husein",

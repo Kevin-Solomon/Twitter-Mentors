@@ -79,6 +79,7 @@ Each mentor section should show the following info:
 1. Profile picture ✅
 2. Name of Mentor ✅
 3. A button, which on click takes the user directly to the mentor profile (in a new tab) ✅
-4. A text which could show when they last tweeted?
-5. Another text showing a preview of their last tweet?
+4. A button, which on click removes the mentor from the list ✅
+5. A text which could show when they last tweeted?
+6. Another text showing a preview of their last tweet?
 */
