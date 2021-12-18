@@ -5,7 +5,7 @@ export default function Mentors() {
   const [twitterid, setTwitterid] = useState("");
 
   async function fetchMentor() {
-    await fetch(`./.netlify/functions/getMentor?username=${twitterid}`)
+    await fetch(`https://twitter-api-fetch-userdata.netlify.app/api/fetchUserData?username=${twitterid}`)
       .then((res) => res.json())
       .then((data) =>
         setMentorList((oldList) => [
