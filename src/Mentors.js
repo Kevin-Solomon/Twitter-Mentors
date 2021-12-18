@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-
+import "./App.css";
+import { FaTwitter, FaTrash } from "react-icons/fa";
 export default function Mentors() {
   const [mentorList, setMentorList] = useState([]);
   const [twitterid, setTwitterid] = useState("");
 
   async function fetchMentor() {
-    await fetch(`https://twitter-api-fetch-userdata.netlify.app/api/fetchUserData?username=${twitterid}`)
+    await fetch(
+      `https://cors-anywhere.herokuapp.com/https://twitter-api-fetch-userdata.netlify.app/api/fetchUserData?username=${twitterid}`
+    )
       .then((res) => res.json())
       .then((data) =>
         setMentorList((oldList) => [
@@ -36,40 +39,44 @@ export default function Mentors() {
   }, [mentorList]);
 
   return (
-    <div>
-      <input onChange={handleInput} value={twitterid} />
-      <button style={{ cursor: "pointer" }} onClick={fetchMentor}>
-        Add Mentor
-      </button>
-      {mentorList.map((mentor, id) => (
-        <section
-          key={id}
-          style={{
-            display: mentor.userName ? "flex" : "none",
-            justifyContent: "space-around",
-            alignItems: "center",
-            marginTop: "1rem",
-            padding: "0.2rem",
-            backgroundColor: "#bdbdbd",
-          }}
-        >
-          <img style={{ borderRadius: "100%" }} src={mentor.pfp} alt="pfp" />
-          <h3>{mentor.realName}</h3>
-          <a
-            href={`https://twitter.com/${mentor.userName}`}
-            target="_blank"
-            rel="noreferrer"
+    <div className="mentor-app">
+      <section className="input-section">
+        <input
+          className="mentor-input"
+          onChange={handleInput}
+          value={twitterid}
+        />
+        <button className="add-mentor-btn" onClick={fetchMentor}>
+          Add Mentor
+        </button>
+      </section>
+      <div className="mentor-list">
+        {mentorList.map((mentor, id) => (
+          <section
+            key={id}
+            className="mentor-section"
+            style={{
+              display: mentor.userName ? "flex" : "none",
+            }}
           >
-            <button style={{ cursor: "pointer" }}>Visit Profile</button>
-          </a>
-          <button
-            style={{ cursor: "pointer" }}
-            onClick={() => handleDelete(mentor.userName)}
-          >
-            Delete Mentor
-          </button>
-        </section>
-      ))}
+            <img className="mentor-pfp" src={mentor.pfp} alt="pfp" />
+            <p className="mentor-name">{mentor.realName}</p>
+            <a
+              href={`https://twitter.com/${mentor.userName}`}
+              target="_blank"
+              rel="noreferrer"
+              title={`${mentor.userName}'s Twitter Profile`}
+            >
+              <FaTwitter className="profile-btn" />
+            </a>
+            <FaTrash
+              className="delete-mentor-btn"
+              onClick={() => handleDelete(mentor.userName)}
+              title={`Delete ${mentor.userName}`}
+            />
+          </section>
+        ))}
+      </div>
     </div>
   );
 }
