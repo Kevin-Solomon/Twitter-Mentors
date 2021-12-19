@@ -8,14 +8,23 @@ export default function Mentors() {
 
   async function getRecentTweet(userid) {
     await fetch(
-      `https://cors-anywhere.herokuapp.com/https://twitter-api-fetch-userdata.netlify.app/api/fetchRecentTweet?userID=${userid}`
+      `https://twitter-api-fetch-userdata.netlify.app/api/fetchRecentTweet?userID=${userid}`
     )
       .then((res) => res.json())
       .then((data) =>
         setMentorList((oldList) =>
           oldList.map((mentor) =>
             mentor.userId === userid
-              ? { ...mentor, recentTweet: `${data.data[0].text.split(' ').slice(0, 10).join(' ')}...` }
+              ? {
+                  ...mentor,
+                  recentTweet: {
+                    id: data.data[0].id,
+                    text: `${data.data[0].text
+                      .split(" ")
+                      .slice(0, 10)
+                      .join(" ")}...`,
+                  },
+                }
               : mentor
           )
         )
@@ -24,7 +33,7 @@ export default function Mentors() {
 
   async function fetchMentor() {
     await fetch(
-      `https://cors-anywhere.herokuapp.com/https://twitter-api-fetch-userdata.netlify.app/api/fetchUserData?username=${twittername}`
+      `https://twitter-api-fetch-userdata.netlify.app/api/fetchUserData?username=${twittername}`
     )
       .then((res) => res.json())
       .then((data) =>
@@ -101,7 +110,14 @@ export default function Mentors() {
             </section>
             <section className="mentor-recent-tweet">
               {mentor.recentTweet ? (
-                <p>{mentor.recentTweet}</p>
+                <a
+                  href={`https://twitter.com/${mentor.userName}/status/${mentor.recentTweet.id}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  title="View Tweet" 
+                >
+                  <p>{mentor.recentTweet.text}</p>
+                </a>
               ) : (
                 <p onClick={() => getRecentTweet(mentor.userId)}>
                   Show Recent Tweet

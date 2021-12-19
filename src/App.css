@@ -91,5 +91,12 @@
 }
 
 .mentor-recent-tweet{
+  margin: 10px 0;
+}
+
+.mentor-recent-tweet > a{
   font-size: small;
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
 }
