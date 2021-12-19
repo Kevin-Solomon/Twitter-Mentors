@@ -1,9 +1,14 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .App {
   background-color: rgba(29, 161, 242, 0.75);
   width: 400px;
   text-align: center;
   font-family: "Montserrat", sans-serif;
-  margin-bottom: -10px;
 }
 
 .title {
@@ -49,9 +54,15 @@
 .mentor-section {
   justify-content: space-around;
   align-items: center;
-  margin: 1rem 0;
   padding: 0.2rem 1rem;
+}
+
+.mentor-main{
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
   background-color: white;
+
 }
 
 .mentor-pfp {
@@ -77,4 +88,8 @@
 
 .delete-mentor-btn{
   color: red;
+}
+
+.mentor-recent-tweet{
+  font-size: small;
 }

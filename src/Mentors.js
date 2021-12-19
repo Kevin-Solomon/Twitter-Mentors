@@ -1,13 +1,30 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import { FaTwitter, FaTrash } from "react-icons/fa";
+
 export default function Mentors() {
   const [mentorList, setMentorList] = useState([]);
-  const [twitterid, setTwitterid] = useState("");
+  const [twittername, setTwittername] = useState("");
+
+  async function getRecentTweet(userid) {
+    await fetch(
+      `https://cors-anywhere.herokuapp.com/https://twitter-api-fetch-userdata.netlify.app/api/fetchRecentTweet?userID=${userid}`
+    )
+      .then((res) => res.json())
+      .then((data) =>
+        setMentorList((oldList) =>
+          oldList.map((mentor) =>
+            mentor.userId === userid
+              ? { ...mentor, recentTweet: `${data.data[0].text.split(' ').slice(0, 10).join(' ')}...` }
+              : mentor
+          )
+        )
+      );
+  }
 
   async function fetchMentor() {
     await fetch(
-      `https://cors-anywhere.herokuapp.com/https://twitter-api-fetch-userdata.netlify.app/api/fetchUserData?username=${twitterid}`
+      `https://cors-anywhere.herokuapp.com/https://twitter-api-fetch-userdata.netlify.app/api/fetchUserData?username=${twittername}`
     )
       .then((res) => res.json())
       .then((data) =>
@@ -15,16 +32,17 @@ export default function Mentors() {
           {
             realName: data.data.name,
             userName: data.data.username,
+            userId: data.data.id,
             pfp: data.data.profile_image_url,
           },
           ...oldList,
         ])
       );
-    setTwitterid("");
+    setTwittername("");
   }
 
   function handleInput(event) {
-    setTwitterid(event.target.value);
+    setTwittername(event.target.value);
   }
 
   function handleDelete(delMentor) {
@@ -44,7 +62,7 @@ export default function Mentors() {
         <input
           className="mentor-input"
           onChange={handleInput}
-          value={twitterid}
+          value={twittername}
         />
         <button className="add-mentor-btn" onClick={fetchMentor}>
           Add Mentor
@@ -52,29 +70,45 @@ export default function Mentors() {
       </section>
       <div className="mentor-list">
         {mentorList.map((mentor, id) => (
-          <section
+          <div
             key={id}
-            className="mentor-section"
             style={{
               display: mentor.userName ? "flex" : "none",
             }}
+            className="mentor-main"
           >
-            <img className="mentor-pfp" src={mentor.pfp} alt="pfp" />
-            <p className="mentor-name">{mentor.realName}</p>
-            <a
-              href={`https://twitter.com/${mentor.userName}`}
-              target="_blank"
-              rel="noreferrer"
-              title={`${mentor.userName}'s Twitter Profile`}
+            <section
+              className="mentor-section"
+              style={{
+                display: mentor.userName ? "flex" : "none",
+              }}
             >
-              <FaTwitter className="profile-btn" />
-            </a>
-            <FaTrash
-              className="delete-mentor-btn"
-              onClick={() => handleDelete(mentor.userName)}
-              title={`Delete ${mentor.userName}`}
-            />
-          </section>
+              <img className="mentor-pfp" src={mentor.pfp} alt="pfp" />
+              <p className="mentor-name">{mentor.realName}</p>
+              <a
+                href={`https://twitter.com/${mentor.userName}`}
+                target="_blank"
+                rel="noreferrer"
+                title={`${mentor.userName}'s Twitter Profile`}
+              >
+                <FaTwitter className="profile-btn" />
+              </a>
+              <FaTrash
+                className="delete-mentor-btn"
+                onClick={() => handleDelete(mentor.userName)}
+                title={`Delete ${mentor.userName}`}
+              />
+            </section>
+            <section className="mentor-recent-tweet">
+              {mentor.recentTweet ? (
+                <p>{mentor.recentTweet}</p>
+              ) : (
+                <p onClick={() => getRecentTweet(mentor.userId)}>
+                  Show Recent Tweet
+                </p>
+              )}
+            </section>
+          </div>
         ))}
       </div>
     </div>
@@ -87,6 +121,11 @@ Each mentor section should show the following info:
 2. Name of Mentor ✅
 3. A button, which on click takes the user directly to the mentor profile (in a new tab) ✅
 4. A button, which on click removes the mentor from the list ✅
-5. A text which could show when they last tweeted?
-6. Another text showing a preview of their last tweet?
+5. A text which could show when they last tweeted? ❌
+6. Another text showing a preview of their last tweet? ✅
 */
+
+// Task for Sunday:
+// 1. Finalize styling (grid for neat layout of buttons)
+// 2. LocalStorage to store prev Mentors
+// 3. serverless func for showing recent tweet ✅
