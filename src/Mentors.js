@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import { FaTwitter, FaTrash } from "react-icons/fa";
+import { FaTwitter, FaTrash, FaExpandAlt } from "react-icons/fa";
 
 export default function Mentors() {
   const [mentorList, setMentorList] = useState([]);
   const [twittername, setTwittername] = useState("");
+  const [loading, setLoading] = useState(false);
 
   async function getRecentTweet(userid) {
+    setLoading(true);
     await fetch(
       `https://twitter-api-fetch-userdata.netlify.app/api/fetchRecentTweet?userID=${userid}`
     )
@@ -29,6 +31,7 @@ export default function Mentors() {
           )
         )
       );
+    setLoading(false);
   }
 
   async function fetchMentor() {
@@ -61,6 +64,10 @@ export default function Mentors() {
     setMentorList(newMentorsList);
   }
 
+  function handleKeyPress(press) {
+    return press === "Enter" ? fetchMentor() : "none";
+  }
+
   useEffect(() => {
     console.log(mentorList);
   }, [mentorList]);
@@ -72,6 +79,8 @@ export default function Mentors() {
           className="mentor-input"
           onChange={handleInput}
           value={twittername}
+          onKeyPress={(event) => handleKeyPress(event.key)}
+          autoFocus={true}
         />
         <button className="add-mentor-btn" onClick={fetchMentor}>
           Add Mentor
@@ -114,13 +123,15 @@ export default function Mentors() {
                   href={`https://twitter.com/${mentor.userName}/status/${mentor.recentTweet.id}`}
                   target="_blank"
                   rel="noreferrer"
-                  title="View Tweet" 
+                  title="View Tweet"
                 >
                   <p>{mentor.recentTweet.text}</p>
                 </a>
+              ) : loading ? (
+                <div className="lds-dual-ring"></div>
               ) : (
                 <p onClick={() => getRecentTweet(mentor.userId)}>
-                  Show Recent Tweet
+                  <FaExpandAlt /> Show Recent Tweet
                 </p>
               )}
             </section>

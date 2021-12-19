@@ -1,4 +1,4 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -16,7 +16,7 @@
   padding: 1rem 0;
 }
 
-.mentor-list{
+.mentor-list {
   overflow: auto;
   height: 275px;
 }
@@ -37,7 +37,7 @@
 .add-mentor-btn {
   cursor: pointer;
   padding: 0.3rem 0.3rem;
-  transition: 0.2s ease-in-out;
+  transition: 0.15s ease-in-out;
   background-color: transparent;
   border: 2px solid black;
   border-radius: 0.5rem;
@@ -54,22 +54,21 @@
 .mentor-section {
   justify-content: space-around;
   align-items: center;
-  padding: 0.2rem 1rem;
+  padding: 0.5rem 1rem;
 }
 
-.mentor-main{
+.mentor-main {
   display: flex;
   flex-direction: column;
   margin: 1rem 0;
   background-color: white;
-
 }
 
 .mentor-pfp {
   border-radius: 100%;
 }
 
-.mentor-name{
+.mentor-name {
   font-weight: 600;
   font-size: large;
 }
@@ -77,26 +76,61 @@
 .profile-btn,
 .delete-mentor-btn {
   cursor: pointer;
-  font-size: 1.5rem
+  font-size: 1.5rem;
 }
 
-.profile-btn{
+.profile-btn {
   color: rgba(29, 161, 242, 0.75);
   margin-top: 5px;
-  font-size: 1.75rem
+  font-size: 1.75rem;
 }
 
-.delete-mentor-btn{
+.profile-btn:hover {
+  transition: 0.2s ease-in-out;
+  color: rgba(21, 117, 177, 0.75);
+}
+
+.delete-mentor-btn {
   color: red;
 }
 
-.mentor-recent-tweet{
-  margin: 10px 0;
+.delete-mentor-btn:hover {
+  color: rgb(190, 2, 2);
+  transition: 0.2s ease-in-out;
 }
 
-.mentor-recent-tweet > a{
+.mentor-recent-tweet {
+  margin: 5px 0;
   font-size: small;
+  cursor: pointer;
+}
+
+.mentor-recent-tweet > a {
   text-decoration: none;
   color: black;
-  cursor: pointer;
+}
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-bottom: 5px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 3px solid black;
+  border-color: black transparent black transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
