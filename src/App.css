@@ -9,6 +9,8 @@
   width: 400px;
   text-align: center;
   font-family: "Montserrat", sans-serif;
+  margin: 0 auto;
+  border: 1px solid black;
 }
 
 .title {
@@ -52,6 +54,7 @@
 }
 
 .mentor-section {
+  display: flex;
   justify-content: space-around;
   align-items: center;
   padding: 0.5rem 1rem;
@@ -110,6 +113,11 @@
   color: black;
 }
 
+.mentor-recent-tweet-text{
+  margin-bottom: 5px;
+  padding: 0 0.7rem;
+}
+
 .lds-dual-ring {
   display: inline-block;
   width: 16px;
@@ -134,3 +142,4 @@
     transform: rotate(360deg);
   }
 }
+
