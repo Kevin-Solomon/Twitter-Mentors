@@ -1,11 +1,11 @@
 import "./App.css";
-import Mentors from "./Mentors";
+import AllMentors from "./AllMentors";
 
 function App() {
   return (
     <div className="App">
       <h2 className="title">Twitter Mentors</h2>
-      <Mentors />
+      <AllMentors />
     </div>
   );
 }
