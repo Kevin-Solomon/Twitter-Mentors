@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
+import InputComponent from "./InputComponent";
 import MentorComponent from "./MentorComponent";
 
 export default function Mentors() {
@@ -10,7 +11,8 @@ export default function Mentors() {
   const [loading, setLoading] = useState(false);
 
   async function fetchMentor() {
-    setLoading(true)
+    setLoading(true);
+
     await fetch(
       `https://twitter-api-fetch-userdata.netlify.app/api/fetchUserData?username=${twittername}`
     )
@@ -27,7 +29,7 @@ export default function Mentors() {
         ])
       );
     setTwittername("");
-    setLoading(false)
+    setLoading(false);
   }
 
   function handleInput(event) {
@@ -52,16 +54,12 @@ export default function Mentors() {
   return (
     <div className="mentor-app">
       <section className="input-section">
-        <input
-          className="mentor-input"
-          onChange={handleInput}
-          value={twittername}
-          onKeyPress={(event) => handleKeyPress(event.key)}
-          autoFocus={true}
+        <InputComponent
+          handleInput={handleInput}
+          twittername={twittername}
+          handleKeyPress={handleKeyPress}
+          fetchMentor={fetchMentor}
         />
-        <button className="add-mentor-btn" onClick={fetchMentor}>
-          Add Mentor
-        </button>
       </section>
       <div className="mentor-list">
         {loading ? (
