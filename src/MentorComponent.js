@@ -36,9 +36,7 @@ export default function MentorComponent({
     setLoading(false);
   }
   return (
-    <div
-      className="mentor-main"
-    >
+    <div className="mentor-main">
       <section className="mentor-section">
         <img className="mentor-pfp" src={mentor.pfp} alt="pfp" />
         <p className="mentor-name">{mentor.realName}</p>

@@ -72,7 +72,10 @@ export default function Mentors() {
         />
       </section>
       {userFetchErr && (
-        <section className="mentor-error-name" onClick={() => setUserFetchErr("")}>
+        <section
+          className="mentor-error-name"
+          onClick={() => setUserFetchErr("")}
+        >
           <p>{`Error: Could not find mentor with username '${userFetchErr}'`}</p>
           <br></br>
           <p>Click to close</p>
@@ -95,24 +98,3 @@ export default function Mentors() {
     </div>
   );
 }
-
-/*
-Each mentor section should show the following info:
-1. Profile picture ✅
-2. Name of Mentor ✅
-3. A button, which on click takes the user directly to the mentor profile (in a new tab) ✅
-4. A button, which on click removes the mentor from the list ✅
-5. A text which could show when they last tweeted? ❌
-6. Another text showing a preview of their last tweet? ✅
-*/
-
-// Task for Sunday:
-// 1. Finalize styling (grid for neat layout of buttons)
-// 2. LocalStorage to store prev Mentors ✅
-// 3. serverless func for showing recent tweet ✅
-// 4. Separate component for handling mentor tabs ✅
-
-// Task for Monday/Tuesday:
-// 1. Check for duplicate entry
-// 2. Add '@' to beginning of input field
-// 3. anything else based on suggestions
