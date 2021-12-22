@@ -69,6 +69,7 @@ export default function Mentors() {
           handleKeyPress={handleKeyPress}
           fetchMentor={fetchMentor}
           userFetchErr={userFetchErr}
+          loading={loading}
         />
       </section>
       {userFetchErr && (
@@ -82,18 +83,15 @@ export default function Mentors() {
         </section>
       )}
       <div className="mentor-list">
-        {loading ? (
-          <div className="lds-dual-ring"></div>
-        ) : (
-          mentorList.map((mentor, id) => (
-            <MentorComponent
-              key={id}
-              mentor={mentor}
-              setMentorList={setMentorList}
-              handleDelete={handleDelete}
-            />
-          ))
-        )}
+        {loading && <div className="lds-dual-ring"></div>}
+        {mentorList.map((mentor, id) => (
+          <MentorComponent
+            key={id}
+            mentor={mentor}
+            setMentorList={setMentorList}
+            handleDelete={handleDelete}
+          />
+        ))}
       </div>
     </div>
   );

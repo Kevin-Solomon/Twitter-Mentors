@@ -156,7 +156,7 @@
   display: inline-block;
   width: 16px;
   height: 16px;
-  margin-bottom: 5px;
+  margin: 0.5rem;
 }
 .lds-dual-ring:after {
   content: " ";
