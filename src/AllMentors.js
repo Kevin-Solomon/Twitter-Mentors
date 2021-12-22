@@ -9,6 +9,7 @@ export default function Mentors() {
   );
   const [twittername, setTwittername] = useState("");
   const [loading, setLoading] = useState(false);
+  const [userFetchErr, setUserFetchErr] = useState("");
 
   async function fetchMentor() {
     setLoading(true);
@@ -18,18 +19,22 @@ export default function Mentors() {
     )
       .then((res) => res.json())
       .then((data) =>
-        setMentorList((oldList) => [
-          {
-            realName: data.data.name,
-            userName: data.data.username,
-            userId: data.data.id,
-            pfp: data.data.profile_image_url,
-          },
-          ...oldList,
-        ])
+        data.errors ? handleUserError(data.errors[0]) : updateMentors(data.data)
       );
     setTwittername("");
     setLoading(false);
+  }
+
+  function updateMentors(newMentor) {
+    setMentorList((oldList) => [
+      {
+        realName: newMentor.name,
+        userName: newMentor.username,
+        userId: newMentor.id,
+        pfp: newMentor.profile_image_url,
+      },
+      ...oldList,
+    ]);
   }
 
   function handleInput(event) {
@@ -47,6 +52,10 @@ export default function Mentors() {
     return press === "Enter" ? fetchMentor() : "none";
   }
 
+  function handleUserError(err) {
+    setUserFetchErr(err.value);
+  }
+
   useEffect(() => {
     localStorage.setItem("mentors", JSON.stringify(mentorList));
   }, [mentorList]);
@@ -59,8 +68,16 @@ export default function Mentors() {
           twittername={twittername}
           handleKeyPress={handleKeyPress}
           fetchMentor={fetchMentor}
+          userFetchErr={userFetchErr}
         />
       </section>
+      {userFetchErr && (
+        <section className="mentor-error-name" onClick={() => setUserFetchErr("")}>
+          <p>{`Error: Could not find mentor with username '${userFetchErr}'`}</p>
+          <br></br>
+          <p>Click to close</p>
+        </section>
+      )}
       <div className="mentor-list">
         {loading ? (
           <div className="lds-dual-ring"></div>
