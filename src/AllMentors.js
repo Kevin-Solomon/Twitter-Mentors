@@ -17,13 +17,15 @@ export default function Mentors() {
 
   async function fetchMentor() {
     setLoading(true);
-    await fetch(
-      `https://twitter-api-fetch-userdata.netlify.app/api/fetchUserData?username=${twittername}`
-    )
-      .then((res) => res.json())
-      .then((data) =>
-        data.errors ? handleUserError() : updateMentors(data.data)
-      );
+    handleUserExists(twittername)
+      ? handleRepeatUser()
+      : await fetch(
+          `https://twitter-api-fetch-userdata.netlify.app/api/fetchUserData?username=${twittername}`
+        )
+          .then((res) => res.json())
+          .then((data) =>
+            data.errors ? handleUserError() : updateMentors(data.data)
+          )
     setTwittername("");
     setLoading(false);
   }
@@ -38,7 +40,6 @@ export default function Mentors() {
       },
       ...oldList,
     ]);
-
   }
 
   function handleInput(event) {
@@ -53,26 +54,22 @@ export default function Mentors() {
   }
 
   function handleKeyPress(press) {
-    return press === "Enter" ? handleUserExists() : "none";
+    return press === "Enter" ? fetchMentor() : "none";
   }
 
   function handleUserError() {
     setUserFetchErr((oldList) => ({ ...oldList, invalidName: true }));
   }
 
-  function handleRepeatUser(){
-    setUserFetchErr((oldList) => ({ ...oldList, userExists: true }))
+  function handleRepeatUser() {
+    setUserFetchErr((oldList) => ({ ...oldList, userExists: true }));
     setTwittername("");
   }
 
-  function handleUserExists() {
-    mentorList.length > 0
-      ? mentorList.map((mentor) =>
-          twittername === mentor.userName
-            ? handleRepeatUser()
-            : fetchMentor()
-        )
-      : fetchMentor();
+  function handleUserExists(name) {
+    return  mentorList.some((mentor) => {
+      return mentor.userName === name
+    });
   }
 
   useEffect(() => {
@@ -86,7 +83,7 @@ export default function Mentors() {
           handleInput={handleInput}
           twittername={twittername}
           handleKeyPress={handleKeyPress}
-          handleUserExists={handleUserExists}
+          fetchMentor={fetchMentor}
           userFetchErr={userFetchErr}
           loading={loading}
         />

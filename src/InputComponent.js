@@ -4,7 +4,7 @@ export default function InputComponent({
   handleInput,
   twittername,
   handleKeyPress,
-  handleUserExists,
+  fetchMentor,
 }) {
   return (
     <>
@@ -19,7 +19,7 @@ export default function InputComponent({
           placeholder={"Enter username..."}
         />
       </div>
-      <button className="add-mentor-btn" onClick={handleUserExists}>
+      <button className="add-mentor-btn" onClick={fetchMentor}>
         Add Mentor
       </button>
     </>
