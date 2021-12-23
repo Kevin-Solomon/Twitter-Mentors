@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
+import ErrorComponent from "./ErrorComponent";
 import InputComponent from "./InputComponent";
 import MentorComponent from "./MentorComponent";
 
@@ -9,17 +10,19 @@ export default function Mentors() {
   );
   const [twittername, setTwittername] = useState("");
   const [loading, setLoading] = useState(false);
-  const [userFetchErr, setUserFetchErr] = useState("");
+  const [userFetchErr, setUserFetchErr] = useState({
+    invalidName: false,
+    userExists: false,
+  });
 
   async function fetchMentor() {
     setLoading(true);
-
     await fetch(
       `https://twitter-api-fetch-userdata.netlify.app/api/fetchUserData?username=${twittername}`
     )
       .then((res) => res.json())
       .then((data) =>
-        data.errors ? handleUserError(data.errors[0]) : updateMentors(data.data)
+        data.errors ? handleUserError() : updateMentors(data.data)
       );
     setTwittername("");
     setLoading(false);
@@ -35,6 +38,7 @@ export default function Mentors() {
       },
       ...oldList,
     ]);
+
   }
 
   function handleInput(event) {
@@ -49,11 +53,26 @@ export default function Mentors() {
   }
 
   function handleKeyPress(press) {
-    return press === "Enter" ? fetchMentor() : "none";
+    return press === "Enter" ? handleUserExists() : "none";
   }
 
-  function handleUserError(err) {
-    setUserFetchErr(err.value);
+  function handleUserError() {
+    setUserFetchErr((oldList) => ({ ...oldList, invalidName: true }));
+  }
+
+  function handleRepeatUser(){
+    setUserFetchErr((oldList) => ({ ...oldList, userExists: true }))
+    setTwittername("");
+  }
+
+  function handleUserExists() {
+    mentorList.length > 0
+      ? mentorList.map((mentor) =>
+          twittername === mentor.userName
+            ? handleRepeatUser()
+            : fetchMentor()
+        )
+      : fetchMentor();
   }
 
   useEffect(() => {
@@ -67,21 +86,15 @@ export default function Mentors() {
           handleInput={handleInput}
           twittername={twittername}
           handleKeyPress={handleKeyPress}
-          fetchMentor={fetchMentor}
+          handleUserExists={handleUserExists}
           userFetchErr={userFetchErr}
           loading={loading}
         />
       </section>
-      {userFetchErr && (
-        <section
-          className="mentor-error-name"
-          onClick={() => setUserFetchErr("")}
-        >
-          <p>{`Error: Could not find mentor with username '${userFetchErr}'`}</p>
-          <br></br>
-          <p>Click to close</p>
-        </section>
-      )}
+      <ErrorComponent
+        userFetchErr={userFetchErr}
+        setUserFetchErr={setUserFetchErr}
+      />
       <div className="mentor-list">
         {loading && <div className="lds-dual-ring"></div>}
         {mentorList.map((mentor, id) => (
