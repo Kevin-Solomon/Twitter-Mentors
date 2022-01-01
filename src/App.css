@@ -5,7 +5,8 @@
 }
 
 .App {
-  background-color: rgba(29, 161, 242, 0.75);
+  /* background-color: rgba(29, 161, 242, 0.75); */
+  background-color: #E1E8ED;
   width: 400px;
   text-align: center;
   font-family: "Montserrat", sans-serif;
@@ -14,7 +15,7 @@
 }
 
 .title {
-  font-weight: 600;
+  font-weight: 700;
   padding: 1rem 0;
   font-size: 1.75rem;
 }
@@ -98,7 +99,7 @@
   display: flex;
   flex-direction: column;
   margin: 1rem 0;
-  background-color: white;
+  background-color: #AAB8C2;
 }
 
 .mentor-pfp {
@@ -106,7 +107,7 @@
 }
 
 .mentor-name {
-  font-weight: 600;
+  font-weight: 700;
   font-size: large;
 }
 
@@ -136,20 +137,35 @@
   transition: 0.2s ease-in-out;
 }
 
+.recent-tweet-click{
+  background-color: #657786;
+  padding: 0.2rem 0;
+}
+
 .mentor-recent-tweet {
-  margin: 5px 0;
-  font-size: small;
+  font-size: 0.8rem;
   cursor: pointer;
+  margin-top: 0.7rem;
 }
 
 .mentor-recent-tweet > a {
   text-decoration: none;
   color: black;
+  font-size: 0.9rem;
 }
 
 .mentor-recent-tweet-text{
-  margin-bottom: 5px;
-  padding: 0 0.7rem;
+  padding: 0.5rem 0.7rem 0.5rem 0;
+  background: linear-gradient(90deg,#657786, #AAB8C2);
+  background-size: 600% 100%;
+  animation: gradient 3s linear infinite;
+  animation-direction: alternate;
+  font-weight: 500;
+}
+
+@keyframes gradient {
+  0% {background-position: 0%}
+  100% {background-position: 100%}
 }
 
 .lds-dual-ring {

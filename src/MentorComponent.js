@@ -67,14 +67,14 @@ export default function MentorComponent({
                 {mentor.recentTweet.text}
               </p>
             </a>
-            <p onClick={() => setShowTweet(false)}>
+            <p className="recent-tweet-click" onClick={() => setShowTweet(false)}>
               <FaExpandAlt /> Hide Tweet
             </p>
           </>
         ) : loading ? (
           <div className="lds-dual-ring"></div>
         ) : (
-          <p onClick={() => getRecentTweet(mentor.userId)}>
+          <p className="recent-tweet-click" onClick={() => getRecentTweet(mentor.userId)}>
             <FaExpandAlt /> Show Recent Tweet
           </p>
         )}

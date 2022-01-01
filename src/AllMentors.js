@@ -79,7 +79,7 @@ export default function Mentors() {
     });
   }
 
-  function handleFetchError(errData){
+  function handleFetchError(){
     setUserFetchErr((oldList) => ({...oldList, otherError: true}))
   }
 
