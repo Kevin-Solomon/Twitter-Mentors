@@ -4,7 +4,7 @@ export default function ErrorComponent({ userFetchErr, setUserFetchErr }) {
   const [showError, setShowError] = useState(false);
 
   useEffect(() => {
-    userFetchErr.invalidName || userFetchErr.userExists
+    userFetchErr.invalidName || userFetchErr.userExists || userFetchErr.otherError
       ? setShowError(true)
       : setShowError(false);
   }, [userFetchErr]);
@@ -24,7 +24,7 @@ export default function ErrorComponent({ userFetchErr, setUserFetchErr }) {
             <p>{"Error: Could not find mentor with that username"}</p>
           )}
           {userFetchErr.userExists && <p>{"Error: Mentor already exists"}</p>}
-
+          {userFetchErr.otherError && <p>{"Whoops! Something didn't go right"}</p>}
           <br></br>
           <p>Click to close</p>
         </section>

@@ -13,6 +13,7 @@ export default function Mentors() {
   const [userFetchErr, setUserFetchErr] = useState({
     invalidName: false,
     userExists: false,
+    otherError: false
   });
 
   async function fetchMentor() {
@@ -23,9 +24,15 @@ export default function Mentors() {
           `https://twitter-api-fetch-userdata.netlify.app/api/fetchUserData?username=${twittername}`
         )
           .then((res) => res.json())
-          .then((data) =>
-            data.errors ? handleUserError() : updateMentors(data.data)
-          )
+          .then((data) => {
+            if (data.errorGen) {
+              handleFetchError(data.errorGen);
+            } else if (data.errors) {
+              handleUserError();
+            } else {
+              updateMentors(data.data);
+            }
+          });
     setTwittername("");
     setLoading(false);
   }
@@ -67,9 +74,13 @@ export default function Mentors() {
   }
 
   function handleUserExists(name) {
-    return  mentorList.some((mentor) => {
-      return mentor.userName === name
+    return mentorList.some((mentor) => {
+      return mentor.userName === name;
     });
+  }
+
+  function handleFetchError(errData){
+    setUserFetchErr((oldList) => ({...oldList, otherError: true}))
   }
 
   useEffect(() => {
