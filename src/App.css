@@ -78,14 +78,22 @@
   background-color: transparent;
   border: 0.175rem solid black;
   border-radius: 0.35rem;
-  font-weight: 600;
-  letter-spacing: -0.05em;
+  font-weight: 700;
+  letter-spacing: 0.01em;
   font-family: "Montserrat", sans-serif;
 }
 
 .add-mentor-btn:hover {
   color: white;
   background-color: black;
+}
+
+.add-mentor-btn:disabled{
+  border: 0.175rem solid #657786;
+}
+
+.add-mentor-btn:disabled:hover{
+  background-color: #657786;
 }
 
 .mentor-section {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 export default function InputComponent({
   handleInput,
@@ -6,6 +6,11 @@ export default function InputComponent({
   handleKeyPress,
   fetchMentor,
 }) {
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    twittername ? setDisabled(false) : setDisabled(true);
+  }, [twittername]);
   return (
     <>
       <div className="search-mentor">
@@ -19,7 +24,11 @@ export default function InputComponent({
           placeholder={"Enter username..."}
         />
       </div>
-      <button className="add-mentor-btn" onClick={fetchMentor}>
+      <button
+        className="add-mentor-btn"
+        onClick={fetchMentor}
+        disabled={disabled}
+      >
         Add Mentor
       </button>
     </>
