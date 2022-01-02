@@ -27,7 +27,7 @@ export default function Mentors() {
           .then((res) => res.json())
           .then((data) => {
             if (data.errorGen) {
-              handleFetchError(data.errorGen);
+              handleFetchError();
             } else if (data.errors) {
               handleUserError();
             } else {
@@ -42,7 +42,7 @@ export default function Mentors() {
     setMentorList((oldList) => [
       {
         realName: newMentor.name,
-        userName: newMentor.username,
+        userName: newMentor.username.toLowerCase(),
         userId: newMentor.id,
         pfp: newMentor.profile_image_url,
       },
