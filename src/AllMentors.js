@@ -3,6 +3,7 @@ import "./App.css";
 import ErrorComponent from "./ErrorComponent";
 import InputComponent from "./InputComponent";
 import MentorComponent from "./MentorComponent";
+import Empty from "../src/images/undraw_no_data_re_kwbl.svg";
 
 export default function Mentors() {
   const [mentorList, setMentorList] = useState(
@@ -13,7 +14,7 @@ export default function Mentors() {
   const [userFetchErr, setUserFetchErr] = useState({
     invalidName: false,
     userExists: false,
-    otherError: false
+    otherError: false,
   });
 
   async function fetchMentor() {
@@ -79,8 +80,8 @@ export default function Mentors() {
     });
   }
 
-  function handleFetchError(){
-    setUserFetchErr((oldList) => ({...oldList, otherError: true}))
+  function handleFetchError() {
+    setUserFetchErr((oldList) => ({ ...oldList, otherError: true }));
   }
 
   useEffect(() => {
@@ -104,15 +105,27 @@ export default function Mentors() {
         setUserFetchErr={setUserFetchErr}
       />
       <div className="mentor-list">
-        {loading && <div className="lds-dual-ring"></div>}
-        {mentorList.map((mentor, id) => (
-          <MentorComponent
-            key={id}
-            mentor={mentor}
-            setMentorList={setMentorList}
-            handleDelete={handleDelete}
-          />
-        ))}
+        {loading && (
+          <div className="mentors-loader">
+            <div className="lds-dual-ring-main"></div>
+          </div>
+        )}
+        {!loading &&
+          (mentorList.length ? (
+            mentorList.map((mentor, id) => (
+              <MentorComponent
+                key={id}
+                mentor={mentor}
+                setMentorList={setMentorList}
+                handleDelete={handleDelete}
+              />
+            ))
+          ) : (
+            <div className="empty-mentors">
+              <img alt="empty" src={Empty} />
+              <p>Nothing added yet...</p>
+            </div>
+          ))}
       </div>
     </div>
   );

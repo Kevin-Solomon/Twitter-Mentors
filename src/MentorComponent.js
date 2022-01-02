@@ -72,7 +72,7 @@ export default function MentorComponent({
             </p>
           </>
         ) : loading ? (
-          <div className="lds-dual-ring"></div>
+          <div className="lds-dual-ring-tweet"></div>
         ) : (
           <p className="recent-tweet-click" onClick={() => getRecentTweet(mentor.userId)}>
             <FaExpandAlt /> Show Recent Tweet
