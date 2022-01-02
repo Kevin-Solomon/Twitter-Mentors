@@ -3,7 +3,7 @@
   "name": "Twitter Mentors",
   "description": "A handy list of your mentors twitter profiles, to check on their latest tweets",
   "author": "Hamza Husein",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "action": {
     "default_icon": "icons.png",
     "default_popup": "index.html"
