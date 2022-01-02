@@ -3,7 +3,6 @@ import "./App.css";
 import ErrorComponent from "./ErrorComponent";
 import InputComponent from "./InputComponent";
 import MentorComponent from "./MentorComponent";
-import Empty from "../src/images/undraw_no_data_re_kwbl.svg";
 
 export default function Mentors() {
   const [mentorList, setMentorList] = useState(
@@ -122,7 +121,6 @@ export default function Mentors() {
             ))
           ) : (
             <div className="empty-mentors">
-              <img alt="empty" src={Empty} />
               <p>Nothing added yet...</p>
             </div>
           ))}
