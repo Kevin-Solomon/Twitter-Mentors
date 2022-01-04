@@ -1,7 +1,7 @@
 # Twitter Mentors
 
 Have you had to resort to manually checking your twitter mentor's profiles for their latest tweets?
-Does the twitter algorigthm make you miss out on their tweets?
+Does the twitter algorithm make you miss out on their tweets?
 Well then, this extension will come in handy
 
 ## Features
