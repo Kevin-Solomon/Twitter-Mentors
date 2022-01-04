@@ -75,7 +75,7 @@ export default function Mentors() {
 
   function handleUserExists(name) {
     return mentorList.some((mentor) => {
-      return mentor.userName === name;
+      return mentor.userName === name.toLowerCase();
     });
   }
 
